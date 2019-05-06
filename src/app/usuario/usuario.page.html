@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{usuario.name}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <p><span>Tipo:</span> {{usuario.isDriver ? 'Chofer' : 'Cliente'}}</p>
+    <p><span>Direccion:</span> {{usuario.direccion}}</p>
+    <p><span>Correo:</span> {{usuario.email}}</p>
+    <p><span>Telefono:</span> {{usuario.telefono}}</p>
+    <p><span>Telefono de emergencia:</span> {{usuario.telefonoEmergencia}}</p>
+
+    <ion-card id="driverPictures" *ngIf="usuario.isDriver">
+        <div *ngIf="usuario.habilitado">
+            <p>El chofer se encuentra habilitado</p>
+            <ion-button color="danger" (click)="deshabilitarChofer(usuario.fbid);">Deshabilitar</ion-button>
+        </div>
+        <div *ngIf="!usuario.habilitado">
+            <p>El chofer no se encuentra habilitado</p>
+            <ion-button color="primary" (click)="habilitarChofer(usuario.fbid);">Habilitar</ion-button>
+        </div>
+    </ion-card>
+</ion-content>

@@ -11,7 +11,7 @@
 
 <ion-content>
     <ion-list>
-        <ion-item *ngFor="let driver of drivers">
+        <ion-item *ngFor="let driver of drivers" (click)="detailsDriver(driver.fbid)">
             {{driver.name}}
             <div class="item-note" slot="end">
                 {{driver.email}}

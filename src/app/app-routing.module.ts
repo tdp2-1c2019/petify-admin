@@ -14,13 +14,18 @@ const routes: Routes = [
   {
     path: 'clientes',
     loadChildren: './clientes/clientes.module#ClientesPageModule'
+  },
+  {
+    path: 'usuario/:id',
+    loadChildren: './usuario/usuario.module#UsuarioPageModule'
   }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

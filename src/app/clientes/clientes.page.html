@@ -11,7 +11,7 @@
 
 <ion-content>
     <ion-list>
-        <ion-item *ngFor="let customer of customers">
+        <ion-item *ngFor="let customer of customers" (click)="detailsCustomer(customer.fbid)">
             {{customer.name}}
             <div class="item-note" slot="end">
                 {{customer.email}}
