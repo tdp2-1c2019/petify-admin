@@ -36,11 +36,11 @@ var HomePageModule = /** @class */ (function () {
                 _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouterModule"].forChild([
                     {
                         path: '',
-                        component: _home_page__WEBPACK_IMPORTED_MODULE_6__["HomePage"]
+                        component: _home_page__WEBPACK_IMPORTED_MODULE_6__["ChoferesPage"]
                     }
                 ])
             ],
-            declarations: [_home_page__WEBPACK_IMPORTED_MODULE_6__["HomePage"]]
+            declarations: [_home_page__WEBPACK_IMPORTED_MODULE_6__["ChoferesPage"]]
         })
     ], HomePageModule);
     return HomePageModule;

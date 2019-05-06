@@ -4,6 +4,9 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+import * as firebase from 'firebase';
+import { environment } from '../environments/environment';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
@@ -11,14 +14,14 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 export class AppComponent {
   public appPages = [
     {
-      title: 'Home',
-      url: '/home',
-      icon: 'home'
+      title: 'Choferes',
+      url: '/choferes',
+      icon: 'car'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
+      title: 'Clientes',
+      url: '/clientes',
+      icon: 'paw'
     }
   ];
 
@@ -35,5 +38,6 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+    firebase.initializeApp(environment.firebase);
   }
 }

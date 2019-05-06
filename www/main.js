@@ -892,7 +892,7 @@ var routes = [
     },
     {
         path: 'list',
-        loadChildren: './list/list.module#ListPageModule'
+        loadChildren: './list/list.module#ClientesPageModule'
     }
 ];
 var AppRoutingModule = /** @class */ (function () {
