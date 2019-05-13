@@ -1,0 +1,67 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            Lista de viajes
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-searchbar placeholder="Chofer" animated autocomplete="on" value="string"></ion-searchbar>
+            </ion-col>
+            <ion-col>
+                <ion-searchbar placeholder="Pasajero" animated autocomplete="on" value="string"></ion-searchbar>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid style="margin: 5px">
+        <ion-row nowrap class="title ion-align-items-center ion-justify-content-around">
+            <ion-col size="2">
+                Fecha
+            </ion-col>
+            <ion-col size="3">
+                Chofer
+            </ion-col>
+            <ion-col size="4">
+                Origen
+                <br>
+                Destino
+            </ion-col>
+            <ion-col size="3">
+                Pasajero
+            </ion-col>
+            <ion-col size="2">
+                Precio
+            </ion-col>
+        </ion-row>
+        <ion-row nowrap class="title ion-align-items-center ion-justify-content-around"
+                 *ngFor="let viaje of viajes; odd as isOdd; even as isEven"
+                 [class.odd]="isOdd"
+                 [class.even]="isEven">
+            <ion-col size="2">
+                {{viaje.fecha}}
+            </ion-col>
+            <ion-col size="3">
+                {{viaje.chofer}}
+            </ion-col>
+            <ion-col size="4">
+                {{viaje.origin_address}}
+                <br>
+                {{viaje.destination_address}}
+            </ion-col>
+            <ion-col size="3">
+                {{viaje.pasajero}}
+            </ion-col>
+            <ion-col size="2">
+                {{viaje.precio | currency}}
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

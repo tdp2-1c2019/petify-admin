@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'usuario/:id',
     loadChildren: './usuario/usuario.module#UsuarioPageModule'
+  },
+  {
+    path: 'viajes',
+    loadChildren: './viajes/viajes.module#ViajesPageModule'
   }
 ];
 

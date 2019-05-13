@@ -22,6 +22,11 @@ export class AppComponent {
       title: 'Clientes',
       url: '/clientes',
       icon: 'paw'
+    },
+    {
+      title: 'Viajes',
+      url: '/viajes',
+      icon: 'trending-up'
     }
   ];
 

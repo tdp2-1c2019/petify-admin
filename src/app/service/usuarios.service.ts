@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 
+import { snapshotToArray } from './SnapshotToArray';
+
 export interface Usuario {
   fbid: string;
   cargoAuto?: boolean;
@@ -84,12 +86,3 @@ export class UsuariosService {
     usuarioRef.child('habilitado').set(habilitado);
   }
 }
-
-export const snapshotToArray = usersSnapshot => {
-  const usersObject = usersSnapshot.val();
-  const users = [];
-  for (const fbid of Object.keys(usersObject)) {
-    users.push({fbid, ...usersObject[fbid]});
-  }
-  return users;
-};
