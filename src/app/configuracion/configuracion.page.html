@@ -18,7 +18,7 @@
         </ion-row>
         <ion-row style="margin-top:10px">
             <ion-col>
-                <ion-input type="text" [(ngModel)]="precioMascota" name="precioMascota" placeholder="Precio por mascota (Actual: {{ conf.precioMascota }})" class="input"></ion-input> 
+                <ion-input type="text" [(ngModel)]="precioMascota" name="precioMascota" placeholder="Precio por mascota (Actual: {{ conf.precioMascota }})" class="input"></ion-input>
             </ion-col>
             <ion-col>
                 <ion-input type="text" [(ngModel)]="precioMinuto" name="precioMinuto" placeholder="Precio por minuto (Actual: {{ conf.precioMinuto }})" class="input"></ion-input>
@@ -45,7 +45,7 @@
                 <ion-input type="text" [(ngModel)]="finHN" name="fintHN" placeholder="Fin horario nocturno (Actual: {{ conf.finHN }})" class="input"></ion-input>
             </ion-col>
             <ion-col>
-                <ion-button color="primary" style="width: 100%;margin-top:0px" (click)="guardar()">GUARDAR</ion-button>
+                <ion-button color="primary" style="width: 100%;margin-top:0px" (click)="guardarConfiguration()">GUARDAR</ion-button>
             </ion-col>
         </ion-row>
     </ion-grid>

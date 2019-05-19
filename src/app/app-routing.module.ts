@@ -25,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'configuracion',
-    loadChildren: './configuracion/configuracion.module#CfgPageModule'
+    loadChildren: './configuracion/configuracion.module#ConfigurationPageModule'
   }
 ];
 
