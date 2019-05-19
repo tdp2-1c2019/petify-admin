@@ -1,20 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Customer, UsuariosService } from '../service/usuarios.service';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-list',
+  selector: 'app-clientes',
   templateUrl: 'clientes.page.html',
-  styleUrls: ['clientes.page.scss']
+  styleUrls: ['clientes.page.scss'],
 })
-export class ClientesPage {
+export class ClientesPage implements OnInit, OnDestroy {
+  private customersObserverSubscription: Subscription;
   private customers: Customer[];
 
-  constructor(private router: Router, private usuariosService: UsuariosService) {
+  private columnsToDisplay: string[] = ['nombre', 'email'];
+
+  constructor(
+    private router: Router,
+    private usuariosService: UsuariosService) {
   }
 
-  ionViewWillEnter() {
-    this.usuariosService.getCustomers().then(customers => this.customers = customers);
+  ngOnInit() {
+    this.customersObserverSubscription = this.usuariosService.getDriversObserver().subscribe((customers => this.customers = customers));
+  }
+
+  ngOnDestroy() {
+    this.customersObserverSubscription.unsubscribe();
   }
 
   detailsCustomer(fbid: string) {

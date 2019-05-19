@@ -1,20 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Driver, UsuariosService } from '../service/usuarios.service';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-choferes',
   templateUrl: 'choferes.page.html',
   styleUrls: ['choferes.page.scss'],
 })
-export class ChoferesPage {
+export class ChoferesPage implements OnInit, OnDestroy {
+  private driversObserverSubscription: Subscription;
   private drivers: Driver[];
 
-  constructor(private router: Router, private usuariosService: UsuariosService) {
+  private columnsToDisplay: string[] = ['nombre', 'email', 'habilitado'];
+
+  constructor(
+    private router: Router,
+    private usuariosService: UsuariosService) {
   }
 
-  ionViewWillEnter() {
-    this.usuariosService.getDrivers().then(drivers => this.drivers = drivers);
+  ngOnInit() {
+    this.driversObserverSubscription = this.usuariosService.getDriversObserver().subscribe((drivers => this.drivers = drivers));
+  }
+
+  ngOnDestroy() {
+    this.driversObserverSubscription.unsubscribe();
   }
 
   detailsDriver(fbid: string) {

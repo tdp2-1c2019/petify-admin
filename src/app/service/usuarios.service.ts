@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
-
-import { snapshotToArray } from './SnapshotToArray';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+import { Observable } from 'rxjs';
 
 export interface Usuario {
   fbid: string;
@@ -44,7 +44,7 @@ export interface Driver {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsuariosService {
   private database: firebase.database.Database;
@@ -52,19 +52,35 @@ export class UsuariosService {
   private customersRef: firebase.database.Reference;
   private driversRef: firebase.database.Reference;
 
-  constructor() {
+  private driversReference: AngularFireList<Driver>;
+  private driversObserver: Observable<Driver[]>;
+  private drivers: Driver[];
+
+  private customersReference: AngularFireList<Customer>;
+  private customersObserver: Observable<Customer[]>;
+  private customers: Customer[];
+
+  constructor(public db: AngularFireDatabase) {
     this.functions = firebase.functions();
     this.database = firebase.database();
     this.customersRef = this.database.ref('customers');
     this.driversRef = this.database.ref('drivers');
+
+    this.driversReference = db.list<Driver>('drivers');
+    this.driversObserver = this.driversReference.valueChanges();
+    this.driversObserver.subscribe(drivers => this.drivers = drivers);
+
+    this.customersReference = db.list<Customer>('customers');
+    this.customersObserver = this.customersReference.valueChanges();
+    this.customersObserver.subscribe(customers => this.customers = customers);
   }
 
-  async getCustomers(): Promise<Customer[]> {
-    return this.customersRef.once('value').then(snapshotToArray);
+  getCustomersObserver(): Observable<Customer[]> {
+    return this.customersObserver;
   }
 
-  async getDrivers(): Promise<Driver[]> {
-    return this.driversRef.once('value').then(snapshotToArray);
+  getDriversObserver(): Observable<Driver[]> {
+    return this.driversObserver;
   }
 
   async getUsuario(fbid: string): Promise<Usuario> {
@@ -77,12 +93,8 @@ export class UsuariosService {
 
   habilitacionUsuario(usuario: Usuario, habilitado: boolean) {
     let usuarioRef: firebase.database.Reference;
-    if (usuario.isDriver) {
-      usuarioRef = this.driversRef;
-    } else {
-      usuarioRef = this.customersRef;
-    }
-    usuarioRef = usuarioRef.child(usuario.fbid);
-    usuarioRef.child('habilitado').set(habilitado);
+    usuarioRef = (usuario.isDriver ? this.driversRef : this.customersRef);
+    usuarioRef = usuarioRef.child(`${usuario.fbid}habilitado`);
+    usuarioRef.set(habilitado);
   }
 }

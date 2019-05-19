@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
 import { ClientesPage } from './clientes.page';
+import { MatTableModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -14,9 +15,10 @@ import { ClientesPage } from './clientes.page';
     RouterModule.forChild([
       {
         path: '',
-        component: ClientesPage
-      }
-    ])
+        component: ClientesPage,
+      },
+    ]),
+    MatTableModule,
   ],
   declarations: [ClientesPage]
 })
