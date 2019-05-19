@@ -1,17 +1,6 @@
 import { Injectable } from '@angular/core';
-import * as firebase from 'firebase';
-
-import { snapshotToArray } from './SnapshotToArray';
-
-export const VIAJE_CREADO = 1;
-export const CHOFER_ASIGNADO = 1;
-export const CHOFER_YENDO = 2;
-export const CHOFER_EN_PUERTA = 3;
-export const EN_CURSO = 4;
-export const FINALIZADO = 5;
-export const RECHAZADO = -999;
-export const CANCELADO = 20;
-export const CANCELADO_GRUPO = -90;
+import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';
+import { Observable } from 'rxjs';
 
 export interface Viaje {
   cantChoferes?: number;
@@ -33,24 +22,46 @@ export interface Viaje {
   origin_longitude: number;
   pasajero: string;
   precio: number;
-  puntaje_chofer: number;
-  puntaje_pasajero: number;
+  puntaje_chofer?: number;
+  puntaje_pasajero?: number;
   viajaAcompanante: boolean;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ViajesService {
-  private database: firebase.database.Database;
-  private viajesRef: firebase.database.Reference;
+  private viajesReference: AngularFireList<Viaje>;
+  private viajesObserver: Observable<Viaje[]>;
+  private viajes: Viaje[];
 
-  constructor() {
-    this.database = firebase.database();
-    this.viajesRef = this.database.ref('viajes');
+  public ESTADO_NOMBRE = {
+    1: 'Chofer asignado',
+    2: 'Chofer yendo',
+    3: 'Chofer esperando',
+    4: 'En curso',
+    5: 'Finalizado',
+    999: 'Rechazado por choferes',
+    20: 'Cancelado por usuario',
+    90: 'Espera continuar busqueda',
+  };
+
+  constructor(public db: AngularFireDatabase) {
+    this.viajesReference = db.list('viajes');
+    this.viajesObserver = this.viajesReference.valueChanges();
+    this.viajesObserver.subscribe(viajes => this.viajes = viajes);
   }
 
-  async getViajes(): Promise<Viaje[]> {
-    return this.viajesRef.once('value').then(snapshotToArray);
+  getViajesStatic(): Viaje[] {
+    return this.viajes;
+  }
+
+  getViajesObserver(): Observable<Viaje[]> {
+    return this.viajesObserver;
+  }
+
+  syncViaje(viajeId: string): Observable<Viaje> {
+    const viajeObserver: AngularFireObject<Viaje> = this.db.object(`viajes/${viajeId}`);
+    return viajeObserver.valueChanges();
   }
 }

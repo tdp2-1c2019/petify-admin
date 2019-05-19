@@ -10,58 +10,35 @@
 </ion-header>
 
 <ion-content>
-    <ion-grid>
-        <ion-row>
-            <ion-col>
-                <ion-searchbar placeholder="Chofer" animated autocomplete="on" value="string"></ion-searchbar>
-            </ion-col>
-            <ion-col>
-                <ion-searchbar placeholder="Pasajero" animated autocomplete="on" value="string"></ion-searchbar>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+    <div class="mat-elevation-z8" style="margin: 8px;">
+        <table mat-table [dataSource]="this.viajes">
+            <ng-container matColumnDef="fecha">
+                <th mat-header-cell *matHeaderCellDef>Fecha</th>
+                <td mat-cell *matCellDef="let viaje">{{viaje.fecha}}</td>
+            </ng-container>
 
-    <ion-grid style="margin: 5px">
-        <ion-row nowrap class="title ion-align-items-center ion-justify-content-around">
-            <ion-col size="2">
-                Fecha
-            </ion-col>
-            <ion-col size="3">
-                Chofer
-            </ion-col>
-            <ion-col size="4">
-                Origen
-                <br>
-                Destino
-            </ion-col>
-            <ion-col size="3">
-                Pasajero
-            </ion-col>
-            <ion-col size="2">
-                Precio
-            </ion-col>
-        </ion-row>
-        <ion-row nowrap class="title ion-align-items-center ion-justify-content-around"
-                 *ngFor="let viaje of viajes; odd as isOdd; even as isEven"
-                 [class.odd]="isOdd"
-                 [class.even]="isEven">
-            <ion-col size="2">
-                {{viaje.fecha}}
-            </ion-col>
-            <ion-col size="3">
-                {{viaje.chofer}}
-            </ion-col>
-            <ion-col size="4">
-                {{viaje.origin_address}}
-                <br>
-                {{viaje.destination_address}}
-            </ion-col>
-            <ion-col size="3">
-                {{viaje.pasajero}}
-            </ion-col>
-            <ion-col size="2">
-                {{viaje.precio | currency}}
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+            <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef>Estado</th>
+                <td mat-cell *matCellDef="let viaje">{{this.viajesService.ESTADO_NOMBRE[viaje.estado]}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="chofer">
+                <th mat-header-cell *matHeaderCellDef>Chofer</th>
+                <td mat-cell *matCellDef="let viaje">{{this.usuariosService.getDriver(viaje.chofer)?.name}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="origen">
+                <th mat-header-cell *matHeaderCellDef>Origen</th>
+                <td mat-cell *matCellDef="let viaje">{{viaje.origin_address}}<br>{{viaje.destination_address}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="precio">
+                <th mat-header-cell *matHeaderCellDef>Precio</th>
+                <td mat-cell *matCellDef="let viaje">{{viaje.precio}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let viaje; columns: columnsToDisplay" (click)="detailsViaje(viaje.id)"></tr>
+        </table>
+    </div>
 </ion-content>

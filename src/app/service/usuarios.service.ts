@@ -83,6 +83,10 @@ export class UsuariosService {
     return this.driversObserver;
   }
 
+  getDriver(fbid: string) {
+    return this.drivers.find(driver => driver.fbid === fbid);
+  }
+
   async getUsuario(fbid: string): Promise<Usuario> {
     const findUser = this.functions.httpsCallable('findUser');
     return findUser({fbid}).then(user => {

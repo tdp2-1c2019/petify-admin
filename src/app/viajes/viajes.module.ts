@@ -6,6 +6,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ViajesPage } from './viajes.page';
+import {
+  MatTableModule,
+  MatSortModule,
+  MatPaginatorModule,
+  MatFormFieldModule,
+  MatInputModule,
+} from '@angular/material';
 
 const routes: Routes = [
   {
@@ -19,7 +26,12 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   declarations: [ViajesPage]
 })

@@ -1,24 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Viaje, ViajesService } from '../service/viajes.service';
+import { Subscription } from 'rxjs';
+import { UsuariosService } from '../service/usuarios.service';
 
 @Component({
   selector: 'app-viajes',
   templateUrl: './viajes.page.html',
   styleUrls: ['./viajes.page.scss'],
 })
-export class ViajesPage {
+export class ViajesPage implements OnInit, OnDestroy {
+  private viajesObserverSubscription: Subscription;
   private viajes: Viaje[];
 
-  constructor(private router: Router, private viajesServie: ViajesService) {
+  private columnsToDisplay: string[] = ['fecha', 'estado', 'chofer', 'origen', 'precio'];
+
+  constructor(
+    private router: Router,
+    private viajesService: ViajesService,
+    private usuariosService: UsuariosService) {
   }
 
-  ionViewWillEnter() {
-    this.viajesServie.getViajes().then(viajes => this.viajes = viajes);
+  ngOnInit() {
+    this.viajesObserverSubscription = this.viajesService.getViajesObserver().subscribe((viajes => this.viajes = viajes));
+  }
+
+  ngOnDestroy() {
+    this.viajesObserverSubscription.unsubscribe();
   }
 
   detailsViaje(viajeId: string) {
     this.router.navigateByUrl(`/viaje/${viajeId}`);
   }
-
 }
