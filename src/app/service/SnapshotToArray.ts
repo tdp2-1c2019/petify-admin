@@ -4,5 +4,6 @@ export const snapshotToArray = usersSnapshot => {
   for (const fbid of Object.keys(object)) {
     array.push({fbid, ...object[fbid]});
   }
+  console.log(usersSnapshot.val())
   return array;
 };

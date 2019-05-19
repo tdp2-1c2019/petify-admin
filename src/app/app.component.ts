@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
@@ -27,6 +28,11 @@ export class AppComponent {
       title: 'Viajes',
       url: '/viajes',
       icon: 'trending-up'
+    },
+    {
+      title: 'Configuracion',
+      url: '/configuracion',
+      icon: 'settings'
     }
   ];
 

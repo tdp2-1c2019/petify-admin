@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            Configuracion
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <h1 style="font-size:40px">Calculo de tarifas</h1>
+            </ion-col>
+        </ion-row>
+        <ion-row style="margin-top:10px">
+            <ion-col>
+                <ion-input type="text" [(ngModel)]="precioMascota" name="precioMascota" placeholder="Precio por mascota (Actual: {{ conf.precioMascota }})" class="input"></ion-input> 
+            </ion-col>
+            <ion-col>
+                <ion-input type="text" [(ngModel)]="precioMinuto" name="precioMinuto" placeholder="Precio por minuto (Actual: {{ conf.precioMinuto }})" class="input"></ion-input>
+            </ion-col>
+        </ion-row>
+        <ion-row style="margin-top:10px">
+            <ion-col>
+                <ion-input type="text" [(ngModel)]="precioAcom" name="precioAcom" placeholder="Precio por acompanante (Actual: {{ conf.precioAcom }})" class="input"></ion-input>
+            </ion-col>
+            <ion-col>
+                <ion-input type="text" [(ngModel)]="multiplicadorHN" name="multiplicadorHN" placeholder="Multiplicador por horario nocturno (Actual: {{ conf.multiplicadorHN }})" class="input"></ion-input>
+            </ion-col>
+        </ion-row>
+        <ion-row style="margin-top:10px">
+            <ion-col>
+                <ion-input type="text" [(ngModel)]="precioKm" name="precioKm" placeholder="Precio por km (Actual: {{ conf.precioKm }})" class="input"></ion-input>
+            </ion-col>
+            <ion-col>
+                <ion-input type="text" [(ngModel)]="inicioHN" name="inicioHN" placeholder="Inicio horario nocturno (Actual: {{ conf.inicioHN }})" class="input"></ion-input>
+            </ion-col>
+        </ion-row>
+        <ion-row style="margin-top:10px">
+            <ion-col>
+                <ion-input type="text" [(ngModel)]="finHN" name="fintHN" placeholder="Fin horario nocturno (Actual: {{ conf.finHN }})" class="input"></ion-input>
+            </ion-col>
+            <ion-col>
+                <ion-button color="primary" style="width: 100%;margin-top:0px" (click)="guardar()">GUARDAR</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
