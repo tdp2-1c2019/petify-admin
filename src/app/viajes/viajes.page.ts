@@ -32,4 +32,8 @@ export class ViajesPage implements OnInit, OnDestroy {
   detailsViaje(viajeId: string) {
     this.router.navigateByUrl(`/viaje/${viajeId}`);
   }
+
+  enCurso(v: Viaje) {
+    return v.estado > 0 && v.estado < 5;
+  }
 }

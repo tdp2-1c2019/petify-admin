@@ -41,6 +41,8 @@ export interface Driver {
   name: string;
   telefono: string;
   telefonoEmergencia: string;
+  lat: string;
+  lng: string;
 }
 
 @Injectable({
@@ -89,6 +91,10 @@ export class UsuariosService {
 
   getDriver(fbid: string) {
     return this.drivers.find(driver => driver.fbid === fbid);
+  }
+
+  getDriverObserver(id: string): Observable<Driver> {
+    return this.db.object<Driver>(`drivers/${id}`).valueChanges();
   }
 
   async getUsuario(fbid: string): Promise<Usuario> {

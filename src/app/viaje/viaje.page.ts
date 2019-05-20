@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Viaje, ViajesService } from '../service/viajes.service';
 import { GoogleMap, GoogleMaps } from '@ionic-native/google-maps';
 import { Platform } from '@ionic/angular';
 import { Usuario, UsuariosService } from '../service/usuarios.service';
 
+declare var google;
+
 @Component({
   selector: 'app-viaje',
   templateUrl: './viaje.page.html',
   styleUrls: ['./viaje.page.scss'],
 })
-export class ViajePage implements OnInit {
+export class ViajePage {
   private viaje: Viaje = {
     cantidadMascotas: '-',
     destination_address: '',
@@ -31,25 +33,41 @@ export class ViajePage implements OnInit {
     viajaAcompanante: false,
   };
 
-  private map: GoogleMap;
+  private map: any;
+  private marker: any;
+  @ViewChild('map') mapElement: ElementRef
 
   constructor(
     private route: ActivatedRoute,
-    private platform: Platform,
     private usuariosService: UsuariosService,
-    private viajesService: ViajesService) { }
+    private viajesService: ViajesService,
+    private router: Router) { }
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
     const viajeId: string = this.route.snapshot.paramMap.get('id');
-    this.viajesService.syncViaje(viajeId).subscribe((viaje) => {
-      this.viaje = viaje;
+    this.viajesService.syncViaje(viajeId).subscribe((v) => {
+      this.viaje = v;
+      if (this.enCurso(v)) {
+        this.map = this.loadMap(v.origin_latitude, v.origin_longitude, v.destination_latitude, v.destination_longitude);
+        this.usuariosService.getDriverObserver(v.chofer).subscribe((ch) => {
+          this.marker = new google.maps.Marker({
+            position: { lat: ch.lat, lng: ch.lng },
+            map: this.map,
+            icon: { url: 'assets/icon/car.png' }
+          })
+        });
+      }
     });
-    await this.platform.ready();
-    await this.loadMap();
   }
 
-  loadMap() {
-    this.map = GoogleMaps.create('map_canvas');
+  loadMap(olat: number, olng: number, dlat: number, dlng: number) {
+    return new google.maps.Map(this.mapElement.nativeElement, {
+      center: { lat: (olat + dlat) / 2, lng: (olng + dlng) / 2 },
+      zoom: 14
+    })
   }
 
+  enCurso(v: Viaje) {
+    return v.estado > 0 && v.estado < 5;
+  }
 }
