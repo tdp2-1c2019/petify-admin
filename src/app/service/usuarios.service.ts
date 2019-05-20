@@ -79,6 +79,10 @@ export class UsuariosService {
     return this.customersObserver;
   }
 
+  getPasajero(fbid: string) {
+    return this.customers.find(customer => customer.fbid === fbid);
+  }
+
   getDriversObserver(): Observable<Driver[]> {
     return this.driversObserver;
   }

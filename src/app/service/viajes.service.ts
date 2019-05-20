@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 export interface Viaje {
   cantChoferes?: number;
-  cantMascotas: string;
+  cantidadMascotas: string;
   chofer?: string;
   destination_address: string;
   destination_latitude: number;
@@ -50,10 +50,6 @@ export class ViajesService {
     this.viajesReference = db.list('viajes');
     this.viajesObserver = this.viajesReference.valueChanges();
     this.viajesObserver.subscribe(viajes => this.viajes = viajes);
-  }
-
-  getViajesStatic(): Viaje[] {
-    return this.viajes;
   }
 
   getViajesObserver(): Observable<Viaje[]> {

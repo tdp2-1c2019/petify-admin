@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalles de viaje</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <p><span>Fecha:</span> {{viaje.fecha}}</p>
+      <p><span>Origen:</span> {{viaje.origin_address}}</p>
+      <p><span>Destino:</span> {{viaje.destination_address}}</p>
+      <p><span>Chofer:</span> {{this.usuariosService.getDriver(viaje.chofer)?.name}}</p>
+      <p><span>Estado:</span> {{this.viajesService.ESTADO_NOMBRE[viaje.estado]}}</p>
+      <p><span>Pasajero:</span> {{this.usuariosService.getPasajero(viaje.pasajero)?.name}}</p>
+      <p><span>Viaja acompanante:</span> {{viaje.viajaAcompanante? 'Si':'No'}}</p>
+      <p><span>Cantidad de mascotas:</span> {{viaje.cantidadMascotas}}</p>
+      <p><span>Forma pago:</span> {{viaje.formaPago}}</p>
+      <p><span>Precio:</span> {{viaje.precio}}</p>
+      <p><span>Observaciones:</span> {{viaje.observaciones}}</p>
+    </ion-col>
+    <ion-col>
+      <div id="map_canvas">
+        <button ion-button>Start demo</button>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>

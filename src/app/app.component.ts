@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import * as firebase from 'firebase';
+import { Environment } from '@ionic-native/google-maps/ngx';
 import { environment } from '../environments/environment';
 
 @Component({
@@ -46,6 +47,10 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      Environment.setEnv({
+        API_KEY_FOR_BROWSER_RELEASE: 'AIzaSyB3DfG7c86Bt8RNSyiUIoctokes9zB-4Yc',
+        API_KEY_FOR_BROWSER_DEBUG: 'AIzaSyB3DfG7c86Bt8RNSyiUIoctokes9zB-4Yc'
+      });
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
