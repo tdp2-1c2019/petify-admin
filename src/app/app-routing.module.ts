@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'configuracion',
     loadChildren: './configuracion/configuracion.module#CfgPageModule'
+  },
+  {
+    path: 'viajes/:id',
+    loadChildren: './viaje/viaje.module#ViajePageModule'
   }
 ];
 

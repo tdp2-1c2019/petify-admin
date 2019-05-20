@@ -41,6 +41,8 @@ export interface Driver {
   name: string;
   telefono: string;
   telefonoEmergencia: string;
+  lat: string,
+  lng: string
 }
 
 @Injectable({
@@ -65,6 +67,10 @@ export class UsuariosService {
 
   async getDrivers(): Promise<Driver[]> {
     return this.driversRef.once('value').then(snapshotToArray);
+  }
+
+  async getDriver(id: string): Promise<Driver> {
+    return this.driversRef.child(id).once('value').then(x => x.val());
   }
 
   async getUsuario(fbid: string): Promise<Usuario> {

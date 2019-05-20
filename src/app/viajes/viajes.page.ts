@@ -17,8 +17,13 @@ export class ViajesPage {
     this.viajesServie.getViajes().then(viajes => this.viajes = viajes);
   }
 
-  detailsViaje(viajeId: string) {
-    this.router.navigateByUrl(`/viaje/${viajeId}`);
+  detailsViaje(viaje: Viaje) {
+    if (this.isClickeable(viaje)) {
+      this.router.navigateByUrl(`/viajes/${viaje.id}`);
+    }
   }
 
+  isClickeable(viaje: Viaje) {
+    return viaje.estado > 0 && viaje.estado < 5;
+  }
 }

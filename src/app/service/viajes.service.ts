@@ -32,7 +32,7 @@ export interface Viaje {
   origin_latitude: number;
   origin_longitude: number;
   pasajero: string;
-  precio: number;
+  precio: string;
   puntaje_chofer: number;
   puntaje_pasajero: number;
   viajaAcompanante: boolean;
@@ -52,5 +52,9 @@ export class ViajesService {
 
   async getViajes(): Promise<Viaje[]> {
     return this.viajesRef.once('value').then(snapshotToArray);
+  }
+
+  async getViaje(id: string): Promise<Viaje> {
+    return this.viajesRef.child(id).once('value').then(x => x.val());
   }
 }

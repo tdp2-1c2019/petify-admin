@@ -44,7 +44,9 @@
         <ion-row nowrap class="title ion-align-items-center ion-justify-content-around"
                  *ngFor="let viaje of viajes; odd as isOdd; even as isEven"
                  [class.odd]="isOdd"
-                 [class.even]="isEven">
+                 [class.even]="isEven"
+                 [class.clickeable]="isClickeable(viaje)"
+                 (click)="detailsViaje(viaje)">
             <ion-col size="2">
                 {{viaje.fecha}}
             </ion-col>
@@ -60,7 +62,7 @@
                 {{viaje.pasajero}}
             </ion-col>
             <ion-col size="2">
-                {{viaje.precio | currency}}
+                {{viaje.precio}}
             </ion-col>
         </ion-row>
     </ion-grid>
