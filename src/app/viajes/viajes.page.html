@@ -10,8 +10,20 @@
 </ion-header>
 
 <ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col width-75>
+                <ion-searchbar placeholder="Usuario" [(ngModel)]="textoBuscar"></ion-searchbar>
+            </ion-col>
+            <ion-col width-25>
+                <ion-button style="margin-top:10px" (click)="buscar()">
+                    BUSCAR
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
     <div class="mat-elevation-z8" style="margin: 8px;">
-        <table mat-table [dataSource]="this.viajes">
+        <table mat-table [dataSource]="this.viajesMostrar">
             <ng-container matColumnDef="fecha">
                 <th mat-header-cell *matHeaderCellDef>Fecha</th>
                 <td mat-cell *matCellDef="let viaje" [class.curso]="enCurso(viaje)">{{viaje.fecha}}</td>
@@ -19,17 +31,20 @@
 
             <ng-container matColumnDef="estado">
                 <th mat-header-cell *matHeaderCellDef>Estado</th>
-                <td mat-cell *matCellDef="let viaje" [class.curso]="enCurso(viaje)">{{this.viajesService.ESTADO_NOMBRE[viaje.estado]}}</td>
+                <td mat-cell *matCellDef="let viaje" [class.curso]="enCurso(viaje)">
+                    {{this.viajesService.ESTADO_NOMBRE[viaje.estado]}}</td>
             </ng-container>
 
             <ng-container matColumnDef="chofer">
                 <th mat-header-cell *matHeaderCellDef>Chofer</th>
-                <td mat-cell *matCellDef="let viaje" [class.curso]="enCurso(viaje)">{{this.usuariosService.getDriver(viaje.chofer)?.name}}</td>
+                <td mat-cell *matCellDef="let viaje" [class.curso]="enCurso(viaje)">
+                    {{this.usuariosService.getDriver(viaje.chofer)?.name}}</td>
             </ng-container>
 
             <ng-container matColumnDef="origen">
                 <th mat-header-cell *matHeaderCellDef>Origen</th>
-                <td mat-cell *matCellDef="let viaje" [class.curso]="enCurso(viaje)">{{viaje.origin_address}}<br>{{viaje.destination_address}}</td>
+                <td mat-cell *matCellDef="let viaje" [class.curso]="enCurso(viaje)">
+                    {{viaje.origin_address}}<br>{{viaje.destination_address}}</td>
             </ng-container>
 
             <ng-container matColumnDef="precio">
