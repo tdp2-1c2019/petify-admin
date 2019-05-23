@@ -20,7 +20,7 @@ export class ClientesPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.customersObserverSubscription = this.usuariosService.getDriversObserver().subscribe((customers => this.customers = customers));
+    this.customersObserverSubscription = this.usuariosService.getCustomersObserver().subscribe((customers => this.customers = customers));
   }
 
   ngOnDestroy() {
