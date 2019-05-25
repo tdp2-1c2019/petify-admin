@@ -22,6 +22,11 @@
                 <td mat-cell *matCellDef="let customer">{{customer.email}}</td>
             </ng-container>
 
+            <ng-container matColumnDef="puntuacion">
+                <th mat-header-cell *matHeaderCellDef>Puntuacion</th>
+                <td mat-cell *matCellDef="let customer">{{customer.puntuacion || 0 | number:'1.1-1'}}★</td>
+            </ng-container>
+
             <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
             <tr mat-row *matRowDef="let customer; columns: columnsToDisplay" (click)="detailsCustomer(customer.fbid)"></tr>
         </table>

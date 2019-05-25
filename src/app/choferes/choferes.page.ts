@@ -12,7 +12,7 @@ export class ChoferesPage implements OnInit, OnDestroy {
   private driversObserverSubscription: Subscription;
   private drivers: Driver[];
 
-  private columnsToDisplay: string[] = ['nombre', 'email', 'habilitado'];
+  private columnsToDisplay: string[] = ['nombre', 'email', 'puntuacion', 'habilitado'];
 
   constructor(
     private router: Router,

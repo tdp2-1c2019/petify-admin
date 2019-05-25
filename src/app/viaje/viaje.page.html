@@ -42,7 +42,7 @@
         <p><span>Forma pago:</span> {{viaje.formaPago}}</p>
       </ion-col>
       <ion-col>
-        <p><span>Precio:</span> {{viaje.precio}}</p>
+        <p><span>Precio:</span> {{viaje.precio | currency:'ARS':'symbol-narrow':'1.2-2'}}</p>
       </ion-col>
       <ion-col>
         <p><span>Observaciones:</span> {{viaje.observaciones}}</p>

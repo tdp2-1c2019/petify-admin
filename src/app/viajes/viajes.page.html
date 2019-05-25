@@ -42,14 +42,14 @@
             </ng-container>
 
             <ng-container matColumnDef="origen">
-                <th mat-header-cell *matHeaderCellDef>Origen</th>
+                <th mat-header-cell *matHeaderCellDef>Origen<br>Destino</th>
                 <td mat-cell *matCellDef="let viaje" [class.curso]="enCurso(viaje)">
                     {{viaje.origin_address}}<br>{{viaje.destination_address}}</td>
             </ng-container>
 
             <ng-container matColumnDef="precio">
                 <th mat-header-cell *matHeaderCellDef>Precio</th>
-                <td mat-cell *matCellDef="let viaje" [class.curso]="enCurso(viaje)">{{viaje.precio}}</td>
+                <td mat-cell *matCellDef="let viaje" [class.curso]="enCurso(viaje)">{{viaje.precio | currency:'ARS':'symbol-narrow':'1.2-2'}}</td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>

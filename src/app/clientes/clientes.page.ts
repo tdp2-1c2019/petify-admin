@@ -12,7 +12,7 @@ export class ClientesPage implements OnInit, OnDestroy {
   private customersObserverSubscription: Subscription;
   private customers: Customer[];
 
-  private columnsToDisplay: string[] = ['nombre', 'email'];
+  private columnsToDisplay: string[] = ['nombre', 'email', 'puntuacion'];
 
   constructor(
     private router: Router,

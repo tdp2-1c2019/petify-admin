@@ -43,14 +43,16 @@ export class ViajesPage implements OnInit, OnDestroy {
 
   buscar() {
     console.log(this.textoBuscar);
-    if (this.textoBuscar != "")
+    if (this.textoBuscar !== '') {
       this.viajesMostrar = this.viajes.filter((v) => {
-        let driver = this.usuariosService.getDriver(v.chofer);
-        if (driver != undefined)
+        const driver = this.usuariosService.getDriver(v.chofer);
+        if (driver !== undefined) {
           return driver.name.toLowerCase().includes(this.textoBuscar.toLowerCase());
+        }
         return false;
       });
-    else
+    } else {
       this.viajesMostrar = this.viajes;
+    }
   }
 }

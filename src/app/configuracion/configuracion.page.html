@@ -18,15 +18,15 @@
         </ion-row>
         <ion-row style="margin-top:10px">
             <ion-col>
-                <ion-input type="text" [(ngModel)]="precioMascota" name="precioMascota" placeholder="Precio por mascota (Actual: {{ conf.precioMascota }})" class="input"></ion-input>
+                <ion-input type="text" [(ngModel)]="precioMascota" name="precioMascota" placeholder="Precio por mascota (Actual: {{ conf.precioMascota | currency:'ARS':'symbol-narrow':'1.2-2' }})" class="input"></ion-input>
             </ion-col>
             <ion-col>
-                <ion-input type="text" [(ngModel)]="precioMinuto" name="precioMinuto" placeholder="Precio por minuto (Actual: {{ conf.precioMinuto }})" class="input"></ion-input>
+                <ion-input type="text" [(ngModel)]="precioMinuto" name="precioMinuto" placeholder="Precio por minuto (Actual: {{ conf.precioMinuto | currency:'ARS':'symbol-narrow':'1.2-2' }})" class="input"></ion-input>
             </ion-col>
         </ion-row>
         <ion-row style="margin-top:10px">
             <ion-col>
-                <ion-input type="text" [(ngModel)]="precioAcom" name="precioAcom" placeholder="Precio por acompanante (Actual: {{ conf.precioAcom }})" class="input"></ion-input>
+                <ion-input type="text" [(ngModel)]="precioAcom" name="precioAcom" placeholder="Precio por acompanante (Actual: {{ conf.precioAcom | currency:'ARS':'symbol-narrow':'1.2-2' }})" class="input"></ion-input>
             </ion-col>
             <ion-col>
                 <ion-input type="text" [(ngModel)]="multiplicadorHN" name="multiplicadorHN" placeholder="Multiplicador por horario nocturno (Actual: {{ conf.multiplicadorHN }})" class="input"></ion-input>
@@ -34,7 +34,7 @@
         </ion-row>
         <ion-row style="margin-top:10px">
             <ion-col>
-                <ion-input type="text" [(ngModel)]="precioKm" name="precioKm" placeholder="Precio por km (Actual: {{ conf.precioKm }})" class="input"></ion-input>
+                <ion-input type="text" [(ngModel)]="precioKm" name="precioKm" placeholder="Precio por km (Actual: {{ conf.precioKm | currency:'ARS':'symbol-narrow':'1.2-2' }})" class="input"></ion-input>
             </ion-col>
             <ion-col>
                 <ion-input type="text" [(ngModel)]="inicioHN" name="inicioHN" placeholder="Inicio horario nocturno (Actual: {{ conf.inicioHN }})" class="input"></ion-input>

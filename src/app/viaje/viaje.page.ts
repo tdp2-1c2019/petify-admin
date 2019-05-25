@@ -1,10 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Viaje, ViajesService } from '../service/viajes.service';
-import { GoogleMap, GoogleMaps } from '@ionic-native/google-maps';
-import { Platform } from '@ionic/angular';
-import { Usuario, UsuariosService } from '../service/usuarios.service';
+import { UsuariosService } from '../service/usuarios.service';
 
 declare var google;
 
@@ -35,7 +33,7 @@ export class ViajePage {
 
   private map: any;
   private marker: any;
-  @ViewChild('map') mapElement: ElementRef
+  @ViewChild('map') mapElement: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
@@ -63,8 +61,8 @@ export class ViajePage {
   loadMap(olat: number, olng: number, dlat: number, dlng: number) {
     return new google.maps.Map(this.mapElement.nativeElement, {
       center: { lat: (olat + dlat) / 2, lng: (olng + dlng) / 2 },
-      zoom: 14
-    })
+      zoom: 14,
+    });
   }
 
   enCurso(v: Viaje) {

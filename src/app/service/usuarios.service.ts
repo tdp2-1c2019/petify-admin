@@ -15,6 +15,7 @@ export interface Usuario {
   isCustomer?: boolean;
   isDriver?: boolean;
   name: string;
+  puntuacion?: number;
   telefono?: string;
   telefonoEmergencia?: string;
 }
