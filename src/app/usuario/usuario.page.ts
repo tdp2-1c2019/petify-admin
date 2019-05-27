@@ -33,13 +33,12 @@ export class UsuarioPage implements OnInit, OnDestroy {
       } else {
         this.columnsToDisplay = ['fecha', 'estado', 'chofer', 'origen', 'precio'];
       }
+      this.viajesObserverSubscription = this.viajesService.getViajesObserver().subscribe((viajes => {
+        this.viajes = viajes
+          .filter((viaje) => this.usuario.fbid === (this.usuario.isDriver ? viaje.chofer : viaje.pasajero))
+          .sort((primero, segundo) => new Date(segundo.fecha).getTime() - new Date(primero.fecha).getTime());
+      }));
     });
-    this.viajesObserverSubscription = this.viajesService.getViajesObserver().subscribe((viajes => {
-      this.viajes = viajes
-        .filter((viaje) => this.usuario.fbid === (this.usuario.isDriver ? viaje.chofer : viaje.pasajero))
-        // @ts-ignore
-        .sort((primero, segundo) => new Date(segundo.fecha) - new Date(primero.fecha));
-    }));
   }
 
   ngOnDestroy() {
