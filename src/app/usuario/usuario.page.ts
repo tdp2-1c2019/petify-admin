@@ -59,15 +59,22 @@ export class UsuarioPage implements OnInit, OnDestroy {
     this.router.navigateByUrl(`/viaje/${viajeId}`);
   }
 
-  enCurso(v: Viaje) {
-    return v.estado > 0 && v.estado < 5;
+  viajeEnCurso(viaje: Viaje) {
+    return viaje.estado > 0 && viaje.estado < 5;
+  }
+
+  viajeCancelado(viaje: Viaje) {
+    return viaje.estado > 10 && viaje.estado !== 90;
   }
 
   getCuentaViajes() {
-    return this.viajes.length;
+    return this.viajes.filter(viaje => viaje.estado <= 5).length;
   }
 
   getTotalViajes() {
-    return this.viajes.map(viaje => viaje.precio).reduce((accu, precio) => accu + precio, 0);
+    return this.viajes
+      .filter(viaje => viaje.estado <= 5)
+      .map(viaje => viaje.precio)
+      .reduce((accu, precio) => accu + precio, 0);
   }
 }
