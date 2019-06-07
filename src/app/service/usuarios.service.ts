@@ -109,7 +109,7 @@ export class UsuariosService {
   habilitacionUsuario(usuario: Usuario, habilitado: boolean) {
     let usuarioRef: firebase.database.Reference;
     usuarioRef = (usuario.isDriver ? this.driversRef : this.customersRef);
-    usuarioRef = usuarioRef.child(`${usuario.fbid}habilitado`);
+    usuarioRef = usuarioRef.child(`${usuario.fbid}/habilitado`);
     usuarioRef.set(habilitado);
   }
 }
