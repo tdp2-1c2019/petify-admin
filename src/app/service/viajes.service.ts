@@ -42,7 +42,8 @@ export class ViajesService {
     4: 'En curso',
     5: 'Finalizado',
     999: 'Rechazado por choferes',
-    20: 'Cancelado por usuario',
+    20: 'Cancelado por cliente',
+    77: 'Reserva cancelada por cliente',
     90: 'Espera continuar busqueda',
   };
 
@@ -54,6 +55,10 @@ export class ViajesService {
 
   getViajesObserver(): Observable<Viaje[]> {
     return this.viajesObserver;
+  }
+
+  getViajes(): Viaje[] {
+    return this.viajes;
   }
 
   syncViaje(viajeId: string): Observable<Viaje> {
