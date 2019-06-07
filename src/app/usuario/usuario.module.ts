@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { UsuarioPage } from './usuario.page';
-import { MatTableModule } from '@angular/material';
+import { MatExpansionModule, MatTableModule } from '@angular/material';
 
 const routes: Routes = [
   {
@@ -22,6 +22,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     MatTableModule,
+    MatExpansionModule,
   ],
   declarations: [UsuarioPage]
 })

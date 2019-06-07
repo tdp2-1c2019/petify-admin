@@ -15,16 +15,32 @@
     <p><span>Telefono:</span> {{usuario.telefono}}</p>
     <p><span>Telefono de emergencia:</span> {{usuario.telefonoEmergencia}}</p>
 
-    <ion-card id="driverPictures" class="mat-elevation-z8" *ngIf="usuario.isDriver">
-        <div *ngIf="usuario.habilitado">
-            <p>El chofer se encuentra habilitado</p>
-            <ion-button color="danger" (click)="deshabilitarChofer(usuario.fbid);">Deshabilitar</ion-button>
-        </div>
-        <div *ngIf="!usuario.habilitado">
-            <p>El chofer no se encuentra habilitado</p>
-            <ion-button color="primary" (click)="habilitarChofer(usuario.fbid);">Habilitar</ion-button>
-        </div>
-    </ion-card>
+    <mat-expansion-panel class="mat-elevation-z8" style="margin: 8px;" *ngIf="usuario.isDriver">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <p *ngIf="usuario.habilitado">El usuario se encuentra habilitado</p>
+                <p *ngIf="!usuario.habilitado">El usuario no se encuentra habilitado</p>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+            <ion-grid *ngIf="usuario.isDriver">
+                <ion-row>
+                    <ion-col><span>Auto:</span></ion-col>
+                    <ion-col><span>Seguro:</span></ion-col>
+                    <ion-col><span>Registro:</span></ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col><ion-img [src]="imagenesUrls.auto" alt="" (click)="viewImage(imagenesUrls.auto, 'Auto')"></ion-img></ion-col>
+                    <ion-col><ion-img [src]="imagenesUrls.seguro" alt="" (click)="viewImage(imagenesUrls.seguro, 'Seguro')"></ion-img></ion-col>
+                    <ion-col><ion-img [src]="imagenesUrls.registro" alt="" (click)="viewImage(imagenesUrls.registro, 'Registro')"></ion-img></ion-col>
+                </ion-row>
+            </ion-grid>
+        </mat-panel-description>
+        <mat-action-row>
+            <ion-button *ngIf="usuario.habilitado" color="danger" (click)="deshabilitarUsuario(usuario.fbid);">Deshabilitar</ion-button>
+            <ion-button *ngIf="!usuario.habilitado" color="primary" (click)="habilitarUsuario(usuario.fbid);">Habilitar</ion-button>
+        </mat-action-row>
+    </mat-expansion-panel>
 
     <br>
 
@@ -33,14 +49,15 @@
             <ng-container matColumnDef="fecha">
                 <th mat-header-cell *matHeaderCellDef>Fecha</th>
                 <td mat-cell *matCellDef="let viaje" [class.curso]="viajeEnCurso(viaje)">{{viaje.fecha}}</td>
-                <td mat-footer-cell *matFooterCellDef> Total confirmados </td>
+                <td mat-footer-cell *matFooterCellDef> Total confirmados</td>
             </ng-container>
 
             <ng-container matColumnDef="estado">
                 <th mat-header-cell *matHeaderCellDef>Estado</th>
-                <td mat-cell *matCellDef="let viaje" [class.curso]="viajeEnCurso(viaje)" [class.cancelado]="viajeCancelado(viaje)">
+                <td mat-cell *matCellDef="let viaje" [class.curso]="viajeEnCurso(viaje)"
+                    [class.cancelado]="viajeCancelado(viaje)">
                     {{this.viajesService.ESTADO_NOMBRE[viaje.estado]}}</td>
-                <td mat-footer-cell *matFooterCellDef> {{getCuentaViajes()}} viajes </td>
+                <td mat-footer-cell *matFooterCellDef> {{getCuentaViajes()}} viajes</td>
             </ng-container>
 
             <ng-container matColumnDef="chofer">
@@ -59,8 +76,10 @@
 
             <ng-container matColumnDef="precio">
                 <th mat-header-cell *matHeaderCellDef>Precio</th>
-                <td mat-cell *matCellDef="let viaje" [class.curso]="viajeEnCurso(viaje)">{{viaje.precio | currency:'ARS':'symbol-narrow':'1.2-2'}}</td>
-                <td mat-footer-cell *matFooterCellDef> {{getTotalViajes() | currency:'ARS':'symbol-narrow':'1.2-2'}} </td>
+                <td mat-cell *matCellDef="let viaje"
+                    [class.curso]="viajeEnCurso(viaje)">{{viaje.precio | currency:'ARS':'symbol-narrow':'1.2-2'}}</td>
+                <td mat-footer-cell
+                    *matFooterCellDef> {{getTotalViajes() | currency:'ARS':'symbol-narrow':'1.2-2'}} </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
