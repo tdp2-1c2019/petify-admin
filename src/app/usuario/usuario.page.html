@@ -15,37 +15,61 @@
     <p><span>Telefono:</span> {{usuario.telefono}}</p>
     <p><span>Telefono de emergencia:</span> {{usuario.telefonoEmergencia}}</p>
 
-    <mat-expansion-panel class="mat-elevation-z8" style="margin: 8px;" *ngIf="usuario.isDriver">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <p *ngIf="usuario.habilitado">El usuario se encuentra habilitado</p>
-                <p *ngIf="!usuario.habilitado">El usuario no se encuentra habilitado</p>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-panel-description>
-            <ion-grid *ngIf="usuario.isDriver">
-                <ion-row>
-                    <ion-col><span>Auto:</span></ion-col>
-                    <ion-col><span>Seguro:</span></ion-col>
-                    <ion-col><span>Registro:</span></ion-col>
-                </ion-row>
-                <ion-row>
-                    <ion-col><ion-img [src]="imagenesUrls.auto" alt="" (click)="viewImage(imagenesUrls.auto, 'Auto')"></ion-img></ion-col>
-                    <ion-col><ion-img [src]="imagenesUrls.seguro" alt="" (click)="viewImage(imagenesUrls.seguro, 'Seguro')"></ion-img></ion-col>
-                    <ion-col><ion-img [src]="imagenesUrls.registro" alt="" (click)="viewImage(imagenesUrls.registro, 'Registro')"></ion-img></ion-col>
-                </ion-row>
-            </ion-grid>
-        </mat-panel-description>
-        <mat-action-row>
-            <ion-button *ngIf="usuario.habilitado" color="danger" (click)="deshabilitarUsuario(usuario.fbid);">Deshabilitar</ion-button>
-            <ion-button *ngIf="!usuario.habilitado" color="primary" (click)="habilitarUsuario(usuario.fbid);">Habilitar</ion-button>
-        </mat-action-row>
-    </mat-expansion-panel>
+
+    <div class="mat-elevation-z8" style="margin: 8px;">
+        <mat-expansion-panel *ngIf="usuario.isDriver">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <p *ngIf="usuario.habilitado">El usuario se encuentra habilitado</p>
+                    <p *ngIf="!usuario.habilitado">El usuario no se encuentra habilitado</p>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-panel-description>
+                <ion-grid *ngIf="usuario.isDriver">
+                    <ion-row>
+                        <ion-col><span>Auto:</span></ion-col>
+                        <ion-col><span>Seguro:</span></ion-col>
+                        <ion-col><span>Registro:</span></ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-img [src]="imagenesUrls.auto" alt=""
+                                     (click)="viewImage(imagenesUrls.auto, 'Auto')"></ion-img>
+                        </ion-col>
+                        <ion-col>
+                            <ion-img [src]="imagenesUrls.seguro" alt=""
+                                     (click)="viewImage(imagenesUrls.seguro, 'Seguro')"></ion-img>
+                        </ion-col>
+                        <ion-col>
+                            <ion-img [src]="imagenesUrls.registro" alt=""
+                                     (click)="viewImage(imagenesUrls.registro, 'Registro')"></ion-img>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </mat-panel-description>
+            <mat-action-row>
+                <ion-button *ngIf="usuario.habilitado" color="danger" (click)="deshabilitarUsuario();">
+                    Deshabilitar
+                </ion-button>
+                <ion-button *ngIf="!usuario.habilitado" color="primary" (click)="habilitarUsuario();">
+                    Habilitar
+                </ion-button>
+            </mat-action-row>
+        </mat-expansion-panel>
+    </div>
 
     <br>
 
     <div class="mat-elevation-z8" style="margin: 8px;">
-        <table mat-table [dataSource]="this.viajes">
+        <ion-item>
+            <ion-label position="stacked">Ver mes:</ion-label>
+            <ion-datetime display-format="MM/YYYY" picker-format="MMMM YYYY" min="2018" cancelText="Cancelar" doneText="Seleccionar"
+                          monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+                          monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic"
+                          placeholder="Seleccione el mes de su interes..."
+                          (ionChange)="onDateChange()" [(ngModel)]="fechaSeleccionada"></ion-datetime>
+        </ion-item>
+        <table mat-table [dataSource]="this.viajesTabla">
             <ng-container matColumnDef="fecha">
                 <th mat-header-cell *matHeaderCellDef>Fecha</th>
                 <td mat-cell *matCellDef="let viaje" [class.curso]="viajeEnCurso(viaje)">{{viaje.fecha}}</td>

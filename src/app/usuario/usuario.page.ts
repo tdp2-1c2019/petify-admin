@@ -22,7 +22,9 @@ export class UsuarioPage implements OnInit, OnDestroy {
   };
 
   private viajesObserverSubscription: Subscription;
-  private viajes: Viaje[];
+  private viajes: Viaje[] = [];
+  private viajesTabla: Viaje[] = [];
+  private fechaSeleccionada: string;
 
   private columnsToDisplay: string[];
 
@@ -59,6 +61,14 @@ export class UsuarioPage implements OnInit, OnDestroy {
       this.viajes = viajes
         .filter((viaje) => this.usuario.fbid === (this.usuario.isDriver ? viaje.chofer : viaje.pasajero))
         .sort((primero, segundo) => new Date(segundo.fecha).getTime() - new Date(primero.fecha).getTime());
+
+      if (!!this.fechaSeleccionada) {
+        const fecha = new Date(this.fechaSeleccionada);
+        this.viajesTabla = this.viajes.filter(viaje =>
+          new Date(viaje.fecha).getMonth() === fecha.getMonth() && new Date(viaje.fecha).getFullYear() === fecha.getFullYear());
+      } else {
+        this.viajesTabla = this.viajes;
+      }
     }));
   }
 
@@ -66,12 +76,12 @@ export class UsuarioPage implements OnInit, OnDestroy {
     this.viajesObserverSubscription.unsubscribe();
   }
 
-  habilitarUsuario(fbid: string) {
+  habilitarUsuario() {
     this.usuariosService.habilitacionUsuario(this.usuario, true);
     this.usuario.habilitado = true;
   }
 
-  deshabilitarUsuario(fbid: string) {
+  deshabilitarUsuario() {
     this.usuariosService.habilitacionUsuario(this.usuario, false);
     this.usuario.habilitado = false;
   }
@@ -82,14 +92,20 @@ export class UsuarioPage implements OnInit, OnDestroy {
       componentProps: {
         imgSource: src,
         imgTitle: title,
-        imgDescription: description
+        imgDescription: description,
       },
       cssClass: 'modal-fullscreen',
       keyboardClose: true,
-      showBackdrop: true
+      showBackdrop: true,
     });
 
     return await modal.present();
+  }
+
+  onDateChange() {
+    const fecha = new Date(this.fechaSeleccionada);
+    this.viajesTabla = this.viajes.filter(viaje =>
+      new Date(viaje.fecha).getMonth() === fecha.getMonth() && new Date(viaje.fecha).getFullYear() === fecha.getFullYear());
   }
 
   detailsViaje(viajeId: string) {
@@ -105,11 +121,11 @@ export class UsuarioPage implements OnInit, OnDestroy {
   }
 
   getCuentaViajes() {
-    return this.viajes.filter(viaje => viaje.estado <= 5).length;
+    return this.viajesTabla.filter(viaje => viaje.estado <= 5).length;
   }
 
   getTotalViajes() {
-    return this.viajes
+    return this.viajesTabla
       .filter(viaje => viaje.estado <= 5)
       .map(viaje => viaje.precio)
       .reduce((accu, precio) => accu + precio, 0);
