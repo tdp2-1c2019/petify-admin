@@ -61,19 +61,27 @@
     <br>
 
     <div class="mat-elevation-z8" style="margin: 8px;">
-        <ion-item>
-            <ion-label position="stacked">Ver mes:</ion-label>
-            <ion-datetime display-format="MM/YYYY" picker-format="MMMM YYYY" min="2018" cancelText="Cancelar" doneText="Seleccionar"
-                          monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
-                          monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic"
-                          placeholder="Seleccione el mes de su interes..."
-                          (ionChange)="onDateChange()" [(ngModel)]="fechaSeleccionada"></ion-datetime>
-        </ion-item>
+        <ion-list-header>
+            <ion-item>
+                <ion-label position="stacked">Ver mes:</ion-label>
+                <ion-datetime display-format="MM/YYYY" picker-format="MMMM YYYY" min="2018" cancelText="Cancelar"
+                              doneText="Seleccionar"
+                              monthNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+                              monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic"
+                              placeholder="Seleccione el mes de su interes..."
+                              (ionChange)="onDateChange()" [(ngModel)]="fechaSeleccionada"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                {{getCuentaViajes()}} viajes
+            </ion-item>
+            <ion-item>
+                Total facturado: {{getTotalViajes() | currency:'ARS':'symbol-narrow':'1.2-2'}}
+            </ion-item>
+        </ion-list-header>
         <table mat-table [dataSource]="this.viajesTabla">
             <ng-container matColumnDef="fecha">
                 <th mat-header-cell *matHeaderCellDef>Fecha</th>
                 <td mat-cell *matCellDef="let viaje" [class.curso]="viajeEnCurso(viaje)">{{viaje.fecha}}</td>
-                <td mat-footer-cell *matFooterCellDef> Total confirmados</td>
             </ng-container>
 
             <ng-container matColumnDef="estado">
@@ -81,34 +89,28 @@
                 <td mat-cell *matCellDef="let viaje" [class.curso]="viajeEnCurso(viaje)"
                     [class.cancelado]="viajeCancelado(viaje)">
                     {{this.viajesService.ESTADO_NOMBRE[viaje.estado]}}</td>
-                <td mat-footer-cell *matFooterCellDef> {{getCuentaViajes()}} viajes</td>
             </ng-container>
 
             <ng-container matColumnDef="chofer">
                 <th mat-header-cell *matHeaderCellDef>Chofer</th>
                 <td mat-cell *matCellDef="let viaje" [class.curso]="viajeEnCurso(viaje)">
                     {{this.usuariosService.getDriver(viaje.chofer)?.name}}</td>
-                <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="origen">
                 <th mat-header-cell *matHeaderCellDef>Origen<br>Destino</th>
                 <td mat-cell *matCellDef="let viaje" [class.curso]="viajeEnCurso(viaje)">
                     {{viaje.origin_address}}<br>{{viaje.destination_address}}</td>
-                <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <ng-container matColumnDef="precio">
                 <th mat-header-cell *matHeaderCellDef>Precio</th>
                 <td mat-cell *matCellDef="let viaje"
                     [class.curso]="viajeEnCurso(viaje)">{{viaje.precio | currency:'ARS':'symbol-narrow':'1.2-2'}}</td>
-                <td mat-footer-cell
-                    *matFooterCellDef> {{getTotalViajes() | currency:'ARS':'symbol-narrow':'1.2-2'}} </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
             <tr mat-row *matRowDef="let viaje; columns: columnsToDisplay" (click)="detailsViaje(viaje.id)"></tr>
-            <tr mat-footer-row *matFooterRowDef="columnsToDisplay"></tr>
         </table>
     </div>
 </ion-content>

@@ -11,6 +11,10 @@ ion-button {
   margin: 10px;
 }
 
+ion-item {
+  --inner-border-width: 0;
+}
+
 table {
   width: 100%;
   cursor: pointer;
@@ -22,8 +26,4 @@ table {
 
 .cancelado {
   color: #d33939;
-}
-
-tr.mat-footer-row {
-  font-weight: bold;
 }
